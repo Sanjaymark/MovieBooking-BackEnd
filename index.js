@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import cors from "cors";
 import {dbConnection} from "./db.js";
 import {userRouter} from "./Routes/user.js"
-import { taskRouter } from "./Routes/task.js";
 import { adminRouter } from "./Routes/admin.js";
+import { bookingRouter } from "./Routes/booking.js";
+import { movieRouter } from "./Routes/movie.js";
+import { showtimeRouter } from "./Routes/showtime.js";
 
 
 //configure env
@@ -24,8 +26,12 @@ app.use(express.json());
 
 //Routes
 app.use("/user", userRouter);
-app.use("/admin", adminRouter)
-app.use("/task", taskRouter);
+app.use("/admin", adminRouter);
+app.use("/booking", bookingRouter);
+app.use("/movie", movieRouter);
+app.use("/showtime", showtimeRouter);
+
+
 
 //start Listening
 app.listen(PORT, ()=>console.log(`server started in localhost:${PORT}`));
