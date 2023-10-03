@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 // Route to create a new booking with showtime and movie details
-router.post('/add/:showtime_Id', isUser, async (req, res) => {
+router.post('/add/:showtime_Id',  async (req, res) => {
   try {
       const showtimeId = req.params.showtime_Id;
 
@@ -58,22 +58,8 @@ router.post('/add/:showtime_Id', isUser, async (req, res) => {
 
 
 
-// Route to get all bookings
-router.get('/all',isAdmin, async (req, res) => {
-    try {
-      const bookings = await Booking.find();
-      res.json(bookings);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
-
-  
-
-
-
 // Route to get booking details by ID
-router.get('/:bookingId',isUser, async (req, res) => {
+router.get('/:bookingId', async (req, res) => {
     try {
       const booking = await Booking.findById(req.params.bookingId);
       if (!booking) {
@@ -90,7 +76,7 @@ router.get('/:bookingId',isUser, async (req, res) => {
 
 
   // Route to delete a booking by ID
-  router.delete('/delete/:bookingId',isUser, async (req, res) => {
+  router.delete('/delete/:bookingId', async (req, res) => {
     try {
       const deletedBooking = await Booking.findByIdAndDelete(req.params.bookingId);
       if (!deletedBooking) {

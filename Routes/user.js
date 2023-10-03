@@ -9,6 +9,7 @@ router.post("/signup", async (req, res) =>{
     try{
         //find user already registered
         let user = await User.findOne({ email: req.body.email});
+        
         if(user)
         {
             return res.status(400).send({error:"Email Already Exists"});
@@ -21,9 +22,11 @@ router.post("/signup", async (req, res) =>{
         // add the user to the database
         user= await new User({...req.body, password: hashedPassword}).save();
 
+        const id = user._id;
+
         //generate a token and give it as a response
         const token = generateToken(user._id);
-        res.status(201).send({ message: "Successfully Created", token});
+        res.status(201).send({ message: "Successfully Created", token,id});
     }
     catch(error)
     {
@@ -39,6 +42,7 @@ router.post("/login", async (req, res) =>{
     try{
         //find the user exist
         const user = await User.findOne({ email: req.body.email});
+        const id = user._id;
         if(!user)
         {
             return res.status(404).send({error: "Invalid email or Password"});
@@ -57,7 +61,7 @@ router.post("/login", async (req, res) =>{
 
         //generate a token and give it as a response
         const token = generateToken(user._id);
-        res.status(200).send({ message:"Successfully Logged in", token});
+        res.status(200).send({ message:"Successfully Logged in", token,id});
     }
     catch(error)
     {

@@ -7,6 +7,8 @@ import { adminRouter } from "./Routes/admin.js";
 import { bookingRouter } from "./Routes/booking.js";
 import { movieRouter } from "./Routes/movie.js";
 import { showtimeRouter } from "./Routes/showtime.js";
+import { isUser } from "./Authentication/Userauth.js";
+
 
 
 //configure env
