@@ -29,7 +29,7 @@ router.post('/add/:showtime_Id',  async (req, res) => {
       const movie_name = showtime.movie_name;
       const time = showtime.start_time;
 
-      
+      console.log(req.user._id);
 
       // Create a new booking and populate its fields
       const newBooking = new Booking({
