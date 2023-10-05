@@ -92,7 +92,7 @@ router.get('/:bookingId',isUser, async (req, res) => {
 
 
 // Route to get all bookings of a specific user by user ID
-router.get('/user/:userId',isUser, async (req, res) => {
+router.get('/user/bookings/:userId',isUser, async (req, res) => {
     try {
       const userId = req.params.userId;
       const bookings = await Booking.find({ user: userId });
