@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 // Route to create a new booking with showtime and movie details
-router.post('/add/:showtime_Id',  async (req, res) => {
+router.post('/add/:showtime_Id',isUser,  async (req, res) => {
   try {
       const showtimeId = req.params.showtime_Id;
 
@@ -29,7 +29,7 @@ router.post('/add/:showtime_Id',  async (req, res) => {
       const movie_name = showtime.movie_name;
       const time = showtime.start_time;
 
-      console.log(req.user._id);
+      
 
       // Create a new booking and populate its fields
       const newBooking = new Booking({
@@ -42,7 +42,6 @@ router.post('/add/:showtime_Id',  async (req, res) => {
           total_price: req.body.number_of_seats * showtime.price,
       });
 
-      console.log(newBooking)
 
       // Save the new booking to the database
       await newBooking.save();
@@ -59,7 +58,7 @@ router.post('/add/:showtime_Id',  async (req, res) => {
 
 
 // Route to get booking details by ID
-router.get('/:bookingId', async (req, res) => {
+router.get('/:bookingId',isUser, async (req, res) => {
     try {
       const booking = await Booking.findById(req.params.bookingId);
       if (!booking) {
@@ -76,7 +75,7 @@ router.get('/:bookingId', async (req, res) => {
 
 
   // Route to delete a booking by ID
-  router.delete('/delete/:bookingId', async (req, res) => {
+  router.delete('/delete/:bookingId',isUser, async (req, res) => {
     try {
       const deletedBooking = await Booking.findByIdAndDelete(req.params.bookingId);
       if (!deletedBooking) {
